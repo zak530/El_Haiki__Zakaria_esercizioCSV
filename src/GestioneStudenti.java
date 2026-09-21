@@ -97,4 +97,90 @@ public class GestioneStudenti {
             System.out.println(e.getMessage());
         }
     }
+
+
+
+
+    public String getValore(String nomeFile, int idCercato) {
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/" + nomeFile));
+
+            reader.readLine(); // salta intestazione
+
+            String riga;
+
+            while ((riga = reader.readLine()) != null) {
+
+                String[] dati = riga.split(",");
+
+                int id = Integer.parseInt(dati[0]);
+
+                if (id == idCercato) {
+                    reader.close();
+                    return dati[1];
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+
+
+
+    public void cercaStudentepernome(String nome) {
+
+        int idNome = getId("nomi.csv", nome);
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/studenti.csv"));
+
+            reader.readLine(); // salta intestazione
+
+            String riga;
+
+            while ((riga = reader.readLine()) != null) {
+
+                String[] dati = riga.split(",");
+
+                int idNomeStudente = Integer.parseInt(dati[1]);
+
+                if (idNomeStudente == idNome) {
+
+                    int idCognome = Integer.parseInt(dati[2]);
+                    int idAzienda = Integer.parseInt(dati[3]);
+                    int idVacanza = Integer.parseInt(dati[4]);
+
+                    String cognome = getValore("cognome.csv", idCognome);
+
+                    String azienda = getValore("azienda.csv", idAzienda);
+
+                    String vacanza = getValore("vacanze.csv", idVacanza);
+
+                    System.out.println("Nome: " + nome);
+                    System.out.println("Cognome: " + cognome);
+                    System.out.println("Azienda: " + azienda);
+                    System.out.println("Vacanza: " + vacanza);
+
+                    reader.close();
+                    return;
+                }
+            }
+
+            reader.close();
+
+            System.out.println("Studente non trovato");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

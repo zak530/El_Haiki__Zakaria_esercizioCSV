@@ -6,6 +6,7 @@ public class Main {
 
 
         gestione.aggiungistudente("mazzoleni", "federico", "scuola", "toscana");
+        gestione.cercaStudentepernome("mazzoleni");
 
 
 
