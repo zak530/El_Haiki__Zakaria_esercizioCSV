@@ -13,67 +13,50 @@ public class GestioneStudenti {
         System.out.println(vacanza);
     }
 
-    public void aggiungiNome(String nome) {
+
+    public int getId(String nomeFile, String valore) {
+
+        int ultimoId = 0;
 
         try {
-            FileWriter writer = new FileWriter("nomi.csv", true); //filewriter è un oggetto che ci permette di scrivere ddentro un file, ed il true serve a far capire di aggiungere alla fine del file senza cancellare nulla.
+            BufferedReader reader = new BufferedReader(new FileReader("src/" + nomeFile));
 
-            writer.write(nome + "\n"); //scrive il contenuto nella variabile nome e va a capo
-
-            writer.close(); //chiude il file
-
-        } catch (IOException e) {
-            System.out.println("Errore durante la scrittura del file"); //eccezzione che esce in output in caso di errore
-        }
-    }
-
-
-    public void leggiNomi() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/nomi.csv"));  //il buffer reader ci permettere di leggere riga per riga il file nomi.csv che si trova in all'interno del project(in src)
-            reader.readLine(); //permette di saltare la prima riga del csv (che contiene solol'intestazione)
-            String riga;
-
-            while ((riga = reader.readLine()) != null) {  //affinche ci sono delle righe il programma va avanti a scorrere fino alla fine
-
-                String[] dati = riga.split(","); //divido il testo ogni colta che trova una virgola
-
-                System.out.println("ID: " + dati[0]);
-                System.out.println("Nome: " + dati[1]);
-            }
-
-            reader.close(); //una volta finito di leggere nomi.csv il programma chiude il file
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void cercaNome(String nome) {
-
-        try {
-            BufferedReader reader =
-                    new BufferedReader(new FileReader("src/nomi.csv"));
-
-            reader.readLine();
+            reader.readLine(); //salta l'intestazione
 
             String riga;
 
             while ((riga = reader.readLine()) != null) {
 
-                String[] dati = riga.split(",");
+                String[] dati = riga.split(","); //divide in posizione dell'array i vari parametri divisi dalla virgola
 
-                if (dati[1].equals(nome)) {
-                    System.out.println("Nome trovato!");
-                    System.out.println("ID: " + dati[0]);
+                int id = Integer.parseInt(dati[0]); //all'interno della variabile 'id' inserisce l'id scritto nel file csv a posizione [0]
+
+                ultimoId = id;
+
+                if (dati[1].equals(valore)) {
+                    reader.close(); // smette di leggere il file e lo chiude
+                    return id;
                 }
             }
 
             reader.close();
 
+            //in caso il valore non esiste lo aggiunge
+            int nuovoId = ultimoId + 1;
+
+            FileWriter writer = new FileWriter("src/" + nomeFile, true); //filewriter è un oggetto che ci permette di scrivere ddentro un file, ed il true serve a far capire di aggiungere alla fine del file senza cancellare nulla.
+
+            writer.write("\n" + nuovoId + "," + valore); //scrive nel file csv
+
+            writer.close(); //chiude il file csv
+
+            return nuovoId;
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            return -1;
         }
     }
+
 
 }

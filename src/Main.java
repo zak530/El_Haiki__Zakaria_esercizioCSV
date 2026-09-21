@@ -5,8 +5,8 @@ public class Main {
         GestioneStudenti gestione = new GestioneStudenti();
 
         //gestione.aggiungistudente("ilario", "suardi", "project", "rimini");
-        gestione.leggiNomi();
-        gestione.cercaNome("Zakaria");
+        gestione.getId("azienda.csv","exitalia");
+
 
     }
 }
