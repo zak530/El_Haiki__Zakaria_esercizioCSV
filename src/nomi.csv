@@ -1,3 +1,4 @@
-nome,cognome,azienda,luogo_vacanza
-Zakaria,Elhaiki,ProjectInformatica,Marocco
-Deaye,Bellafkih,Exitalia,Salento
+id,nome
+1,Deaye
+2,Zakaria
+3,Giacomo
