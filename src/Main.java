@@ -4,6 +4,8 @@ public class Main {
 
         GestioneStudenti gestione = new GestioneStudenti();
 
-        gestione.aggiungistudente("ilario", "suardi", "project", "rimini");
+        //gestione.aggiungistudente("ilario", "suardi", "project", "rimini");
+        gestione.leggiNomi();
+
     }
 }
