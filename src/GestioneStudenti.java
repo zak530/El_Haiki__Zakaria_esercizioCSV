@@ -49,6 +49,31 @@ public class GestioneStudenti {
         }
     }
 
+    public void cercaNome(String nome) {
 
+        try {
+            BufferedReader reader =
+                    new BufferedReader(new FileReader("src/nomi.csv"));
+
+            reader.readLine();
+
+            String riga;
+
+            while ((riga = reader.readLine()) != null) {
+
+                String[] dati = riga.split(",");
+
+                if (dati[1].equals(nome)) {
+                    System.out.println("Nome trovato!");
+                    System.out.println("ID: " + dati[0]);
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

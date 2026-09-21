@@ -6,6 +6,7 @@ public class Main {
 
         //gestione.aggiungistudente("ilario", "suardi", "project", "rimini");
         gestione.leggiNomi();
+        gestione.cercaNome("Zakaria");
 
     }
 }
