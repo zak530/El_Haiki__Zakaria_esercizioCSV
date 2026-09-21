@@ -4,8 +4,9 @@ public class Main {
 
         GestioneStudenti gestione = new GestioneStudenti();
 
-        //gestione.aggiungistudente("ilario", "suardi", "project", "rimini");
-        gestione.getId("azienda.csv","exitalia");
+
+        gestione.aggiungistudente("mazzoleni", "federico", "scuola", "toscana");
+
 
 
     }

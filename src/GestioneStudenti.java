@@ -5,13 +5,7 @@ import java.io.IOException;
 
 
 public class GestioneStudenti {
-    public void aggiungistudente(String nome, String cognome, String azienda, String vacanza) {
 
-        System.out.println(nome);
-        System.out.println(cognome);
-        System.out.println(azienda);
-        System.out.println(vacanza);
-    }
 
 
     public int getId(String nomeFile, String valore) {
@@ -45,7 +39,6 @@ public class GestioneStudenti {
             int nuovoId = ultimoId + 1;
 
             FileWriter writer = new FileWriter("src/" + nomeFile, true); //filewriter è un oggetto che ci permette di scrivere ddentro un file, ed il true serve a far capire di aggiungere alla fine del file senza cancellare nulla.
-
             writer.write("\n" + nuovoId + "," + valore); //scrive nel file csv
 
             writer.close(); //chiude il file csv
@@ -59,4 +52,49 @@ public class GestioneStudenti {
     }
 
 
+    public void aggiungistudente(String nome,String cognome, String azienda, String vacanza) {
+
+        int idNome = getId("nomi.csv", nome);
+
+        int idCognome = getId("cognome.csv", cognome);
+
+        int idAzienda = getId("azienda.csv", azienda);
+
+        int idVacanza = getId("vacanze.csv", vacanza);
+
+
+        try {
+            // cerchiamo il prossimo ID dello studente
+            BufferedReader reader = new BufferedReader(new FileReader("src/studenti.csv"));
+
+            reader.readLine(); // salta intestazione
+
+            String riga;
+            int ultimoId = 0;
+
+            while ((riga = reader.readLine()) != null) {
+
+                String[] dati = riga.split(",");
+
+                ultimoId = Integer.parseInt(dati[0]);
+            }
+
+            reader.close();
+
+            int nuovoIdStudente = ultimoId + 1;
+
+
+            // aggiungiamo lo studente
+            FileWriter writer = new FileWriter("src/studenti.csv", true);
+
+            writer.write("\n" + nuovoIdStudente + "," + idNome + "," + idCognome + "," + idAzienda + "," + idVacanza);
+
+            writer.close();
+
+            System.out.println("Studente aggiunto!");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
